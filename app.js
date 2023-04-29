@@ -31,9 +31,9 @@ function stepZero(target) {
     count++
 }
 
-function init(i) {
-    if (!step) stepCross(i.target);
-    else stepZero(i.target);
+function init(e) {
+    if (!step) stepCross(e.target);
+    else stepZero(e.target);
     step = !step;
     win()
 }
