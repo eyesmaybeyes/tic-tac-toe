@@ -20,21 +20,29 @@ let cross = `<svg class="cross">
 </svg>`
 
 function stepCross(target) {
+    if (target.tagName == 'svg' || target.tagName == 'line' || target.tagName == 'circle') {
+        return;
+    }
     target.innerHTML = cross;
     target.classList.add('x');
-    count++
+    count++;
+    step = true;
 }
 
 function stepZero(target) {
+    if (target.tagName == 'svg' || target.tagName == 'line' || target.tagName == 'circle') {
+        return;
+    }
     target.innerHTML = circle;
     target.classList.add('o');
-    count++
+    count++;
+    step = false;
 }
 
 function init(e) {
     if (!step) stepCross(e.target);
     else stepZero(e.target);
-    step = !step;
+    // step = !step;
     win()
 }
 
@@ -74,6 +82,7 @@ function win() {
                 result.innerText = 'Выиграли X!';
             }, 1500);
             game.removeEventListener('click', init)
+            return
         }
 
         else if (fields[comb[i][0]].classList.contains('o') &&
@@ -86,14 +95,14 @@ function win() {
                 result.innerText = 'Выиграли O!';
             }, 1500);
             game.removeEventListener('click', init)
+            return
         }
-
-        else if (count == 9) {
-            setTimeout(() => {
-                result.innerText = 'Ничья!';
-            }, 1500);
-            game.removeEventListener('click', init)
-        }
+    }
+    if (count == 9) {
+        setTimeout(() => {
+            result.innerText = 'Ничья!';
+        }, 1500);
+        game.removeEventListener('click', init)
     }
 }
 
